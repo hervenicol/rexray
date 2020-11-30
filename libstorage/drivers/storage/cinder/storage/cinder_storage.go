@@ -681,7 +681,7 @@ func (d *driver) VolumeAttach(
 func getDeviceLink(
 	volumeID string) string {
 
-	return fmt.Sprintf("/dev/disk/by-id/virtio-%s", volumeID[:20])
+	return fmt.Sprintf("/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_%s", volumeID)
 }
 
 func resolveDeviceName(
