@@ -690,11 +690,17 @@ func resolveDeviceName(
 
 	attachedDeviceLink := getDeviceLink(volumeID)
 	attachedDeviceName, err := filepath.EvalSymlinks(attachedDeviceLink)
-	if err != nil {
-		return deviceName
+	if err == nil {
+	    return attachedDeviceName
 	}
 
-	return attachedDeviceName
+	attachedDeviceLink_trunc := getDeviceLink(volumeID[:20])
+	attachedDeviceName_trunc, err_trunc := filepath.EvalSymlinks(attachedDeviceLink_trunc)
+	if err_trunc == nil {
+	    return attachedDeviceName_trunc
+	}
+
+    return deviceName
 }
 
 func (d *driver) VolumeDetach(
